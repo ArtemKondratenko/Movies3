@@ -1,38 +1,51 @@
 public class AfishaManager {
     
     private int maxNumberMovies = 10;
-    private Movies[] items = new Movies[0];
+    private Movie[] items;
+    private int count = 0;
 
-    public AfishaManager() {}
+    public AfishaManager() {
+        items = new Movie[maxNumberMovies];
+    }
     public AfishaManager(int limitNumberMovies) {
         this.maxNumberMovies = limitNumberMovies;
+        items = new Movie[maxNumberMovies];
     }
 
-    public void add(Movies film) {
-        Movies[] addMovies = new Movies[items.length + 1];
-        for(int i = 0; i < items.length; i++) {
-            addMovies[i] = items[i];
+    public void add(Movie film) {
+        if(count == maxNumberMovies) {
+            count = 0;
         }
-        addMovies[addMovies.length -1] = film;
-        items = addMovies;
+        items[count] = film;
+        count++;
     }
-    public Movies[] getMovies() {
+    public Movie[] getMovies() {
         return items;
     }
 
-    public void findLast(int maxNumberMovies) {
-        String[] revMovies = new String[maxNumberMovies];
-        int index = 0;
-        for(int i = items.length-1; i > 0; i--) {
-            revMovies[index] = String.valueOf(items[i]);
-            index++;
+    public Movie[] findLast() {
+        int count = 0;
+        for(Movie film : items) {
+            if(film != null) {
+                count++;
+            }
         }
-        System.out.println(revMovies);
+
+        Movie[] revMovies = new Movie[count];
+        int index = 0;
+        for(int i = items.length-1; i >= 0; i--) {
+            if(items[i] != null) {
+                revMovies[index] = items[i];
+                System.out.println(revMovies[index].getname());
+                index++;
+            }
+        }
+        return  revMovies;
     }
 
     public void findAll() {
-        for (Movies f: items) {
-            System.out.println(f);
+        for (Movie f: items) {
+            System.out.println(f.getname());
         }
     }
 
